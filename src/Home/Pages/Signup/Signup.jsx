@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import img from "../../../assets/assets/images/login/login.svg";
 import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Signup = () => {
 
@@ -10,15 +11,17 @@ const Signup = () => {
         event.preventDefault();
 
         const form = event.target;
-        const name = form.value;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
         console.log(name, email, password);
         
-        createUser(name, email, password)
+        createUser( email, password)
         .then(result => {
-            const user = 
+            const user = result.user;
+            console.log(user);
         })
+        .catch(error => console.log(error))
     }
     return (
         <div>
@@ -43,7 +46,7 @@ const Signup = () => {
                     <input
                       type="text"
                       name="name"
-                      placeholder="name"
+                      placeholder="Name"
                       className="input input-bordered"
                     />
                   </div>
@@ -52,9 +55,9 @@ const Signup = () => {
                       <span className="label-text">Email</span>
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       name="email"
-                      placeholder="email"
+                      placeholder="e-mail"
                       className="input input-bordered"
                     />
                   </div>
@@ -64,7 +67,7 @@ const Signup = () => {
                       <span className="label-text">Confirm Password</span>
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       name="password"
                       placeholder="password"
                       className="input input-bordered"
